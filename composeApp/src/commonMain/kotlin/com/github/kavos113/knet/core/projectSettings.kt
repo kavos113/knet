@@ -9,4 +9,4 @@ expect fun saveProjectSettings(settings: ProjectSettings)
 expect fun saveSession(openFilePaths: List<Path>)
 expect fun loadSession(): List<Path>
 
-expect fun loadKeywords(dirPath: Path): Map<String, String>
+expect fun loadKeywords(): Map<String, String>

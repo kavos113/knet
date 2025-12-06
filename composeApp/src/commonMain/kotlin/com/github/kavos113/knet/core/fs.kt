@@ -8,3 +8,5 @@ expect fun readFile(path: Path): ByteArray
 expect fun writeFile(path: Path, data: ByteArray)
 expect fun createFile(path: Path)
 expect fun createDirectory(path: Path)
+
+expect fun getKeywordContent(path: Path, keyword: String): String?
