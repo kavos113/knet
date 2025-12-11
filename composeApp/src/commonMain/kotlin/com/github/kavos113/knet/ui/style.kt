@@ -17,7 +17,7 @@ object CommonColor {
 
 object CommonStyle {
     val normalTextStyle = TextStyle(
-        fontSize = 10.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight(400),
         color = CommonColor.foreground
     )

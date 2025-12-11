@@ -14,14 +14,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.github.kavos113.knet.domain.FileItem
 import com.github.kavos113.knet.ui.CommonColor
 import com.github.kavos113.knet.ui.CommonStyle
+import com.github.kavos113.knet.ui.explorer.ItemType.Directory
+import com.github.kavos113.knet.ui.explorer.ItemType.File
 import knet.composeapp.generated.resources.Res
 import knet.composeapp.generated.resources.chevron_right_24px
 import knet.composeapp.generated.resources.folder_24px
@@ -30,32 +30,40 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
+private const val OFFSET_FILE_ITEM_INDENT = 12
+
 @Composable
 fun ExplorerScreen(
     modifier: Modifier = Modifier,
     explorerViewModel: ExplorerViewModel = koinViewModel(),
 ) {
-    val uiState by explorerViewModel.uiState.collectAsState()
+    val uiFiles by explorerViewModel.uiFiles.collectAsState()
 
     LazyColumn {
-        items(uiState.files) { file ->
-            when(file) {
-                is FileItem.DirectoryEntry -> {
-                    val isOpen = uiState.openedPaths.contains(file.path)
-
-                    DirectoryItem(
-                        name = file.name,
-                        isOpen = isOpen,
-                        onClickOpen = { explorerViewModel.clickDirectory(file.path, isOpen) }
-                    )
-                }
-                is FileItem.FileEntry -> {
-                    OneFileItem(
-                        name = file.name
-                    )
-                }
-            }
+        items(uiFiles) { file ->
+            FileNodeItem(
+                item = file,
+                onClickOpen = { explorerViewModel.clickDirectory(file.path) },
+                modifier = Modifier.padding(start = (file.level * OFFSET_FILE_ITEM_INDENT).dp)
+            )
         }
+    }
+}
+
+@Composable
+private fun FileNodeItem(
+    item: FileUiItem,
+    onClickOpen: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    when(item.type) {
+        File -> OneFileItem(name = item.name, modifier = modifier)
+        Directory -> DirectoryItem(
+            name = item.name,
+            isOpen = item.isOpen,
+            onClickOpen = onClickOpen,
+            modifier = modifier
+        )
     }
 }
 
@@ -76,7 +84,7 @@ private fun DirectoryItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .clickable { onClickOpen() }
-            .height(12.dp)
+            .height(16.dp)
     ) {
         Icon(
             painter = painterResource(Res.drawable.chevron_right_24px),
@@ -108,7 +116,7 @@ private fun OneFileItem(
         horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .height(12.dp)
+            .height(16.dp)
             .padding(start = 28.dp)
     ) {
         Text(
