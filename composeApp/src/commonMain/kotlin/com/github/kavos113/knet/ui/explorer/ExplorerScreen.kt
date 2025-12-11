@@ -28,11 +28,12 @@ import knet.composeapp.generated.resources.folder_24px
 import knet.composeapp.generated.resources.folder_open_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ExplorerScreen(
     modifier: Modifier = Modifier,
-    explorerViewModel: ExplorerViewModel = ExplorerViewModel()
+    explorerViewModel: ExplorerViewModel = koinViewModel(),
 ) {
     val uiState by explorerViewModel.uiState.collectAsState()
 
