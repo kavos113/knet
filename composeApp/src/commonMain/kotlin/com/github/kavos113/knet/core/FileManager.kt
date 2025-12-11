@@ -4,9 +4,7 @@ import com.github.kavos113.knet.domain.FileItem
 import okio.FileSystem
 import okio.Path
 
-object FileManager {
-    private val fileSystem = FileSystem.SYSTEM
-
+class FileManager(private val fileSystem: FileSystem = FileSystem.SYSTEM) {
     private val keywordRegex = Regex("""<keyword name="([^>"]*)">([\s\S]*?)</keyword>""")
 
     fun getFileTree(path: Path): List<FileItem> {
