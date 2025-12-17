@@ -13,6 +13,7 @@ object CommonColor {
     val mainLight = Color(0xff91e451)
     val folder = Color(0xffe4ac10)
     val gray = Color(0xffc9c9c9)
+    val isNotSaved = Color(0xff0048ff)
 }
 
 object CommonStyle {
