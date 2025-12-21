@@ -3,7 +3,7 @@ package com.github.kavos113.knet.lib
 import okio.Path
 import okio.Path.Companion.toPath
 
-class JvmAppConfig : AppConfig {
+class JvmOsConfig : OsConfig {
     override val osConfigDir: Path
         get() {
             val os = System.getProperty("os.name").lowercase()

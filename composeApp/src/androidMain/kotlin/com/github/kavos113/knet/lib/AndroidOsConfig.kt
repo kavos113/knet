@@ -4,7 +4,7 @@ import android.content.Context
 import okio.Path
 import okio.Path.Companion.toPath
 
-class AndroidAppConfig(private val context: Context) : AppConfig {
+class AndroidOsConfig(private val context: Context) : OsConfig {
     override val osConfigDir: Path
         get() = context.filesDir.path.toPath()
 }
