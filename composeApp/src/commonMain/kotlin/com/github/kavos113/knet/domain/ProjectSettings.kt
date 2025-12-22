@@ -1,17 +1,25 @@
 package com.github.kavos113.knet.domain
 
-const val PROJECT_SETTINGS_DIR = ".knet"
-const val PROJECT_SETTINGS_FILE = "settings.json"
-const val PROJECT_SESSION_FILE = "session.json"
-const val PROJECT_KEYWORDS_FILE = "keywords.json"
+import com.github.kavos113.knet.lib.PathListSerializer
+import kotlinx.serialization.Serializable
+import okio.Path
 
+
+@Serializable
 data class ProjectSettings(
-    val settings: FontSettings
+    val settings: FontSettings = FontSettings()
 )
 
+@Serializable
 data class FontSettings(
-    val editorFontFamily: String,
-    val editorFontSize: Int,
-    val previewFontFamily: String,
-    val previewFontSize: Int,
+    val editorFontFamily: String = "",
+    val editorFontSize: Int = 0,
+    val previewFontFamily: String = "",
+    val previewFontSize: Int = 0,
+)
+
+@Serializable
+data class OpenedPaths(
+    @Serializable(with = PathListSerializer::class)
+    val paths: List<Path> = emptyList()
 )

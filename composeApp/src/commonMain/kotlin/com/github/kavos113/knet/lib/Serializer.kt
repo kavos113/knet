@@ -1,6 +1,7 @@
 package com.github.kavos113.knet.lib
 
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -21,3 +22,5 @@ object PathSerializer : KSerializer<Path> {
         return decoder.decodeString().toPath()
     }
 }
+
+object PathListSerializer : KSerializer<List<Path>> by ListSerializer(PathSerializer)
