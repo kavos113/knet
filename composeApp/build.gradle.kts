@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -35,6 +37,7 @@ kotlin {
             implementation(libs.okio)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.kotlinx.selialization)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
